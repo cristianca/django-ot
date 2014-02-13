@@ -13,7 +13,7 @@ def get_action_choices():
     for action in OT_IMPORT_ACTIONS:
         m, f = action.rsplit('.', 1)
         action_func = getattr(importlib.import_module(m), f)
-        choices.append((action, action_func.__name__))
+        choices.append((action, action_func.__doc__ or action_func.__name__))
     return choices
 
 
