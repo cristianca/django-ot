@@ -2,8 +2,11 @@ from setuptools import setup
 
 setup(
     name='django-ot',
-    version='0.1',
-    packages=['django_ot', 'django_ot.migrations', 'django_ot.management', 'django_ot.management.commands'],
+    version='0.2',
+    packages=['django_ot', 'django_ot.migrations', 'django_ot.management',
+              'django_ot.management.commands',
+              'django_ot.otcms',
+              'django_ot.otcms.migrations'],
     include_package_data=True,
     license='MIT',
     description='django application for opentopic',
