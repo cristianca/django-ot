@@ -14,5 +14,5 @@ class CmsOtConfig(OtConfig):
     language = models.CharField(_('language'), choices=settings.LANGUAGES,
         max_length=15)
     placeholder = models.CharField(_('placeholder'), max_length=255)
-    parent_page = models.ForeignKey(Page, null=True, blank=True)
+    parent_page = models.ForeignKey('cms.Page', null=True, blank=True)
 

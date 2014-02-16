@@ -15,7 +15,8 @@ def create_cms_page(ot_config, news, content_object):
         page = api.create_page(
             title=news.title,
             template=ot_config.template,
-            language=ot_config.language
+            language=ot_config.language,
+            parent=ot_config.parent_page
         )
 
         placeholder = page.placeholders.get(slot=ot_config.placeholder)

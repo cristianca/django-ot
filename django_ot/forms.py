@@ -7,7 +7,8 @@ class OtConfigAdminFormset(BaseInlineFormSet):
 
     def _construct_form(self, i, **kwargs):
         form = super(OtConfigAdminFormset, self)._construct_form(i, **kwargs)
-        form.account = self.instance
+        if self.instance and self.instance.pk:
+            form.account = self.instance
         return form
 
 

@@ -56,7 +56,7 @@ class OtConfig(models.Model):
         m, f = self.action.rsplit('.', 1)
         action_func = getattr(importlib.import_module(m), f)
         for n in news:
-            hash = int(hashlib.md5(unicode(n._json)).hexdigest(), 16)
+            hash = unicode(hashlib.md5(unicode(n._json)).hexdigest())[:250]
             try:
                 ot_news = OtNews.objects.get(ot_news_pk=n.id, ot_config=self)
             except OtNews.DoesNotExist:
@@ -76,8 +76,10 @@ class OtConfig(models.Model):
                     content_object = ot_news.content_object
 
             if is_updated:
-                action_func(ot_config=self, news=n,
+                content_object = action_func(ot_config=self, news=n,
                     content_object=content_object)
+                ot_news.content_object = content_object
+                ot_news.save()
 
     def get_channel_display(self):
         return u''
@@ -86,7 +88,7 @@ class OtConfig(models.Model):
 class OtNews(models.Model):
     ot_config = models.ForeignKey(OtConfig)
     ot_news_pk = models.PositiveIntegerField(_('News Id in Opentopic'))
-    hash = models.PositiveIntegerField(_('Update Hash'))
+    hash = models.CharField(_('Update Hash'), max_length=255)
 
     content_type = models.ForeignKey(ContentType, null=True, blank=True)
     object_id = models.PositiveIntegerField(_('Object id'), null=True,
