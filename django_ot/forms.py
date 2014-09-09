@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.models import BaseInlineFormSet
 from .models import OtConfig
+from requests.exceptions import ConnectionError
 
 
 class OtConfigAdminFormset(BaseInlineFormSet):
@@ -19,13 +20,17 @@ class OtConfigAdminForm(forms.ModelForm):
 
     def set_account(self, account):
         self._account = account
-        channels = account.api.get_channel_list()
-        channel_choices = [
-            (channel.id, u'%s: %s' % (channel.channel_type, channel.name))
-            for channel in channels]
-        channel_choices.insert(0, ('', '------'))
-        self.fields['channel'] = forms.ChoiceField(choices=channel_choices,
-            required=False)
+        try:
+            channels = account.api.get_channel_list()
+        except ConnectionError:
+            pass
+        else:
+            channel_choices = [
+                (channel.id, u'%s: %s' % (channel.channel_type, channel.name))
+                for channel in channels]
+            channel_choices.insert(0, ('', '------'))
+            self.fields['channel'] = forms.ChoiceField(choices=channel_choices,
+                required=False)
 
     def get_account(self, account):
         return getattr(self, '_account', None)
