@@ -6,7 +6,7 @@ DEFAULT_ACTIONS = (
 )
 
 OT_IMPORT_ACTIONS = getattr(settings, 'OT_IMPORT_ACTIONS', DEFAULT_ACTIONS)
-
+CONNECTION_ERROR = "There was problem with your connection to opentopic."
 
 def get_action_choices():
     choices = []

@@ -1,7 +1,8 @@
+from requests.exceptions import ConnectionError
 from django import forms
 from django.forms.models import BaseInlineFormSet
 from .models import OtConfig
-from requests.exceptions import ConnectionError
+from .consts import CONNECTION_ERROR
 
 
 class OtConfigAdminFormset(BaseInlineFormSet):
@@ -23,7 +24,7 @@ class OtConfigAdminForm(forms.ModelForm):
         try:
             channels = account.api.get_channel_list()
         except ConnectionError:
-            pass
+            self.fields['channel'].help_text = CONNECTION_ERROR
         else:
             channel_choices = [
                 (channel.id, u'%s: %s' % (channel.channel_type, channel.name))
