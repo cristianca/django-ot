@@ -17,4 +17,3 @@ class CmsOtConfig(OtConfig):
     placeholder = models.CharField(_('placeholder'), max_length=255)
     parent_page = models.ForeignKey('cms.Page', null=True, blank=True)
     user = models.ForeignKey(User, null=True, blank=True)
-
