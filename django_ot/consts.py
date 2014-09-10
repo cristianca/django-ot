@@ -1,5 +1,7 @@
-from django.conf import settings
 import importlib
+
+from django.conf import settings
+
 
 DEFAULT_ACTIONS = (
     'django_ot.actions.dummy_action',

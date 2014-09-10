@@ -12,6 +12,11 @@ from .consts import OT_ACTION_CHOICES
 from .managers import OtConfigManager
 
 
+class HttpApi(Api):
+    """Temporary http class as https is not working properlly"""
+    API_URL = u'http://app.opentopic.com/%(site_slug)s/api/%(api_version)s/'
+
+
 class OtAccount(models.Model):
 
     slug = models.SlugField(_('Account Slug'), max_length=255)
@@ -28,7 +33,7 @@ class OtAccount(models.Model):
     @property
     def api(self):
         if not hasattr(self, '_api'):
-            self._api = Api(self.slug, self.user, self.api_key)
+            self._api = HttpApi(self.slug, self.user, self.api_key)
         return self._api
 
 
