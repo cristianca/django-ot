@@ -23,3 +23,4 @@ class OtNewsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(OtAccount, OtAccountAdmin)
+admin.site.register(OtNews, OtNewsAdmin)
