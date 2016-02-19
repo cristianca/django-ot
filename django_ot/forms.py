@@ -21,6 +21,7 @@ class OtConfigAdminForm(forms.ModelForm):
 
     class Meta:
         model = OtConfig
+        fields = "__all__"
 
     def set_account(self, account):
         self._account = account
