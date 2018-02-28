@@ -1,7 +1,11 @@
 import importlib
 import hashlib
 
-from django.contrib.contenttypes.generic import GenericForeignKey
+
+try:
+    from django.contrib.contenttypes.generic import GenericForeignKey
+except ImportError:
+    from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
